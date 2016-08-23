@@ -26,7 +26,6 @@ public class Main {
                         return new ModelAndView(m, "index.html"); // if user is null, present them with login page
                     } else {
                         m.put("name", user.name); //if user is not null, take hashmap, take user name in that name key
-                        //m.put("password", user.getPassword());
                         return new ModelAndView(m, "messages.html");
                     }
                 }),
@@ -66,6 +65,7 @@ public class Main {
                     return "";
                 }
         );
+
 
     }
 
