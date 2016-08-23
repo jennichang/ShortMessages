@@ -15,6 +15,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        p.put("Jennifer", "a");
+        p.put("Alice", "b");
+        p.put("Ben", "c");
+
         Spark.get(
                 "/",
                 ((request, response) -> {
@@ -23,7 +27,6 @@ public class Main {
                     } else {
                         m.put("name", user.name); //if user is not null, take hashmap, take user name in that name key
                         //m.put("password", user.getPassword());
-                        //p.put(user.name, user.getPassword());
                         return new ModelAndView(m, "messages.html");
                     }
                 }),
@@ -37,7 +40,13 @@ public class Main {
                     String password = request.queryParams("password");
                     // string matches up name of field that is part of the form
                     user = new User(name, password); // setting static user to new user object that has that name
-                    response.redirect("/"); // then we're redirecting back to the homepage
+                    //p.put(user.name, user.getPassword());
+                    if(p.get(user.name).equals(user.getPassword())) {
+                        response.redirect("/");
+                    } else {
+                        user = null;
+                        response.redirect("/");
+                    }// then we're redirecting back to the homepage
                     return "";
                 })
         );
@@ -51,7 +60,7 @@ public class Main {
 //                    for(int i = 0; i < messages.size(); i++) {
 //                        m.put("messageList", messages.get(i));
 //                    } // this doesn't work, because it replaces the previous messages
-                   // m.put("messageList", String.join(System.lineSeparator(), messages));
+                    // m.put("messageList", String.join(System.lineSeparator(), messages));
                     m.put("messageList", messages);
                     response.redirect("/"); // then we're redirecting back to the homepage
                     return "";
