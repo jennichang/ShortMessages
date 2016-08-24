@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<h1>Post Your Messages</h1>
+<h1 style="color:blue;">Post Your Messages</h1>
 <body>
 <form action="/create-message" method="post">
     <input type="text" placeholder="Write a message" name="message"/>
     <button type="submit">Submit</button>
-    <button type="logout">Logout</button>
 </form>
+<br>
+<a href="/logout">Log Out</a>
 Messages by {{name}}
 <ol>
     {{#messageList}}

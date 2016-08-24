@@ -9,9 +9,8 @@ import java.util.HashMap;
 
 public class Main {
     static User user; // by default this is going to be null
-    public static ArrayList<String> messages = new ArrayList<>();
-    public static HashMap m = new HashMap();
-    public static HashMap<String, String> p = new HashMap();
+    public static ArrayList<String> messages = new ArrayList<>(); // move into my user class
+    public static HashMap<String, String> p = new HashMap(); // change value to user object
 
     public static void main(String[] args) {
 
@@ -22,10 +21,12 @@ public class Main {
         Spark.get(
                 "/",
                 ((request, response) -> {
+                    HashMap m = new HashMap();
                     if (user == null) { // checking if user is null.
                         return new ModelAndView(m, "index.html"); // if user is null, present them with login page
                     } else {
                         m.put("name", user.name); //if user is not null, take hashmap, take user name in that name key
+                        m.put("messageList", messages);
                         return new ModelAndView(m, "messages.html");
                     }
                 }),
@@ -39,7 +40,7 @@ public class Main {
                     String password = request.queryParams("password");
                     // string matches up name of field that is part of the form
                     user = new User(name, password); // setting static user to new user object that has that name
-                    //p.put(user.name, user.getPassword());
+                    p.put(user.name, user.getPassword());
                     if(p.get(user.name).equals(user.getPassword())) {
                         response.redirect("/");
                     } else {
@@ -60,12 +61,13 @@ public class Main {
 //                        m.put("messageList", messages.get(i));
 //                    } // this doesn't work, because it replaces the previous messages
                     // m.put("messageList", String.join(System.lineSeparator(), messages));
-                    m.put("messageList", messages);
+
                     response.redirect("/"); // then we're redirecting back to the homepage
                     return "";
                 }
         );
 
+//logout route to main.java, set user to null anchor tag in html
 
     }
 
