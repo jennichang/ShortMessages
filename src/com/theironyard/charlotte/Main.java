@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Main {
     static User user; // by default this is going to be null
     public static ArrayList<String> messages = new ArrayList<>(); // move into my user class
-    public static HashMap<String, String> p = new HashMap(); // change value to user object
+    public static HashMap<String, String> p = new HashMap(); // string and user as value,
 
     public static void main(String[] args) {
 
@@ -61,7 +61,6 @@ public class Main {
 //                        m.put("messageList", messages.get(i));
 //                    } // this doesn't work, because it replaces the previous messages
                     // m.put("messageList", String.join(System.lineSeparator(), messages));
-
                     response.redirect("/"); // then we're redirecting back to the homepage
                     return "";
                 }
